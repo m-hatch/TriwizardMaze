@@ -1,0 +1,56 @@
+const webpack = require('webpack');
+const path = require('path');
+
+const dev = process.env.NODE_ENV !== 'production' && process.argv.indexOf('-p') === -1;
+
+const DefinePluginConfig = new webpack.DefinePlugin({
+  'process.env.NODE_ENV': JSON.stringify('production'),
+});
+
+module.exports = {
+  entry: [
+    path.join(__dirname, '/src/index.js')
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'url-loader',
+        options: { limit: 10000 }
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.js'],
+  },
+  output: {
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
+  devServer: {
+    host: 'localhost',
+    port: '8080',
+    contentBase: './dist',
+    hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    historyApiFallback: true,
+  },
+  mode: dev ? 'development' : 'production',
+  optimization: !dev ? {
+    minimize: true,
+  } : {},
+  plugins: dev
+    ? [
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
+    ]
+    : [DefinePluginConfig]
+};
