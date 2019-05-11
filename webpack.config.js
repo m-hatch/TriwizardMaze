@@ -19,6 +19,25 @@ module.exports = {
         use: ['babel-loader'],
       },
       {
+        test: /\.(sass|scss|css)$/,
+        use: [
+          'style-loader',
+          { 
+            loader: 'css-loader', 
+            options: { importLoaders: 1 } 
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: 'postcss.config.js'
+              }
+            }
+          },
+          'sass-loader'
+        ]
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: 'url-loader',
         options: { limit: 10000 }
