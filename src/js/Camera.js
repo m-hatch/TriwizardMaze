@@ -13,12 +13,13 @@ class Camera {
     this.scale = (this.width + this.height) / 1200
   }
 
-  render (player, map) {
+  render (player, map, navigation) {
     // Update the camera view;
     // call in each iteration of the game loop
     this.drawSky(player.direction, map.skybox, map.light)
     this.drawColumns(player, map);
     this.drawWand(player.wand, player.paces)
+    this.drawNavigation(player, navigation)
   }
 
   drawSky (direction, sky, ambient) {
@@ -61,6 +62,13 @@ class Camera {
     this.ctx.rotate(15 * Math.PI / 180)
     this.ctx.drawImage(wand.image, left, top, wand.width * this.scale, wand.height * this.scale)
     this.ctx.restore()
+  }
+
+  drawNavigation (player, navigation) {
+    var ctx = navigation.ctx
+    var mapPos = {x: 0, y: 0}
+    var playerPos = {x: player.x, y: player.y}
+    navigation.update(ctx, mapPos, playerPos)
   }
 
   _drawColumn (column, ray, angle, map) {
