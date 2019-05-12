@@ -6,7 +6,7 @@ class Player {
     this.x = x
     this.y = y
     this.direction = direction
-    this.weapon = new Bitmap('images/wand.png', 360, 360)
+    this.wand = new Bitmap('images/wand.png', 360, 360)
     this.paces = 0
   }
 

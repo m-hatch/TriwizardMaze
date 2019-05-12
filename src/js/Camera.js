@@ -17,6 +17,7 @@ class Camera {
     // Update the camera view,
     // call in each iteration of the game loop
     this.drawSky(player.direction, map.skybox, map.light)
+    this.drawWand(player.wand, player.paces)
   }
 
   drawSky (direction, sky, ambient) {
@@ -36,6 +37,17 @@ class Camera {
       this.ctx.fillRect(0, this.height * 0.5, this.width, this.height * 0.5)
     }
 
+    this.ctx.restore()
+  }
+
+  drawWand (wand, paces) {
+    var bobX = Math.cos(paces * 2) * this.scale * 6
+    var bobY = Math.sin(paces * 4) * this.scale * 6
+    var left = this.width * 0.5 + bobX
+    var top = this.height * 0.06 + bobY
+    this.ctx.save()
+    this.ctx.rotate(15 * Math.PI / 180)
+    this.ctx.drawImage(wand.image, left, top, wand.width * this.scale, wand.height * this.scale)
     this.ctx.restore()
   }
 }
