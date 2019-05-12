@@ -1,11 +1,11 @@
-const webpack = require('webpack');
-const path = require('path');
+const webpack = require('webpack')
+const path = require('path')
 
-const dev = process.env.NODE_ENV !== 'production' && process.argv.indexOf('-p') === -1;
+const dev = process.env.NODE_ENV !== 'production' && process.argv.indexOf('-p') === -1
 
 const DefinePluginConfig = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': JSON.stringify('production'),
-});
+  'process.env.NODE_ENV': JSON.stringify('production')
+})
 
 module.exports = {
   entry: [
@@ -16,15 +16,15 @@ module.exports = {
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: ['babel-loader']
       },
       {
         test: /\.(sass|scss|css)$/,
         use: [
           'style-loader',
-          { 
-            loader: 'css-loader', 
-            options: { importLoaders: 1 } 
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1 }
           },
           {
             loader: 'postcss-loader',
@@ -45,7 +45,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js']
   },
   output: {
     path: path.join(__dirname, '/dist'),
@@ -58,18 +58,18 @@ module.exports = {
     contentBase: './dist',
     hot: true,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     },
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   mode: dev ? 'development' : 'production',
   optimization: !dev ? {
-    minimize: true,
+    minimize: true
   } : {},
   plugins: dev
     ? [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
+      new webpack.NamedModulesPlugin()
     ]
     : [DefinePluginConfig]
-};
+}

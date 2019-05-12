@@ -11,7 +11,6 @@ class Map {
   }
 
   get (x, y) {
-    // We modify x, y
     x = Math.floor(x)
     y = Math.floor(y)
 
