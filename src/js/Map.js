@@ -5,6 +5,7 @@ class Map {
     this.size = size
     this.wallGrid = new Uint8Array(size * size)
     this.skybox = new Bitmap('../images/deathvalley_panorama.jpg', 2000, 750)
+    this.wallTexture = new Bitmap('../images/hedge-box.png', 400, 400);
     this.light = 2
     // maybe not needed?
     this._inspect = this._inspect.bind(this)

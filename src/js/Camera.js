@@ -14,9 +14,10 @@ class Camera {
   }
 
   render (player, map) {
-    // Update the camera view,
+    // Update the camera view;
     // call in each iteration of the game loop
     this.drawSky(player.direction, map.skybox, map.light)
+    this.drawColumns(player, map);
     this.drawWand(player.wand, player.paces)
   }
 
@@ -40,15 +41,68 @@ class Camera {
     this.ctx.restore()
   }
 
+  drawColumns (player, map) {
+    this.ctx.save();
+    for (let column = 0; column < this.resolution; column++) {
+      const x = column / this.resolution - 0.5;
+      const angle = Math.atan2(x, this.focalLength);
+      const ray = map.cast(player, player.direction + angle, this.range);
+      this._drawColumn(column, ray, angle, map);
+    }
+    this.ctx.restore();
+  }
+
   drawWand (wand, paces) {
-    var bobX = Math.cos(paces * 2) * this.scale * 6
-    var bobY = Math.sin(paces * 4) * this.scale * 6
-    var left = this.width * 0.5 + bobX
-    var top = this.height * 0.06 + bobY
+    const bobX = Math.cos(paces * 2) * this.scale * 6
+    const bobY = Math.sin(paces * 4) * this.scale * 6
+    const left = this.width * 0.5 + bobX
+    const top = this.height * 0.06 + bobY
     this.ctx.save()
     this.ctx.rotate(15 * Math.PI / 180)
     this.ctx.drawImage(wand.image, left, top, wand.width * this.scale, wand.height * this.scale)
     this.ctx.restore()
+  }
+
+  _drawColumn (column, ray, angle, map) {
+    const ctx = this.ctx;
+    const texture = map.wallTexture;
+    const left = Math.floor(column * this.spacing);
+    const width = Math.ceil(this.spacing);
+    let hit = -1;
+
+    while (++hit < ray.length && ray[hit].height <= 0);
+
+    for (let s = ray.length - 1; s >= 0; s--) {
+      const step = ray[s];
+      const rainDrops = Math.pow(Math.random(), 3) * s;
+      const rain = (rainDrops > 0) && this._project(0.1, angle, step.distance);
+
+      if (s === hit) {
+        const textureX = Math.floor(texture.width * step.offset);
+        const wall = this._project(step.height, angle, step.distance);
+
+        ctx.globalAlpha = 1;
+        ctx.drawImage(texture.image, textureX, 0, 1, texture.height, left, wall.top, width, wall.height);
+        
+        ctx.fillStyle = '#000000';
+        ctx.globalAlpha = Math.max((step.distance + step.shading) / this.lightRange - map.light, 0);
+        ctx.fillRect(left, wall.top, width, wall.height);
+      }
+      
+      ctx.fillStyle = '#ffffff';
+      ctx.globalAlpha = 0.15;
+      while (--rainDrops > 0) ctx.fillRect(left, Math.random() * rain.top, 1, rain.height);
+    }
+  }
+
+  _project (height, angle, distance) {
+    const z = distance * Math.cos(angle)
+    const wallHeight = this.height * height / z
+    const bottom = this.height / 2 * (1 + 1 / z)
+    return {
+      top: bottom - wallHeight,
+      height: wallHeight
+    }
   }
 }
 
