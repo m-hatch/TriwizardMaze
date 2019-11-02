@@ -12,7 +12,7 @@ const display = document.getElementById('canvas')
 const camera = new Camera(display, MOBILE ? 160 : 320, 0.8)
 const map = new Map(sampleMaze.size)
 const navigation = new Navigation(sampleMaze.size)
-const player = new Player(4.5, 2.5, Math.PI * 0.5)
+const player = new Player(sampleMaze.x, sampleMaze.y, Math.PI * 0.5)
 const controls = new Controls()
 const loop = new GameLoop()
 
