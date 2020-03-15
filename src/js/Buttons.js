@@ -1,23 +1,33 @@
 class Buttons {
   constructor() {
-    this.target, this.navigation
+    this.navigation
     this.active = true
     this.handleClick =this.handleClick.bind(this)
   }
 
   load(nav) {
-    if (!this.navigation) {
+    if (nav) {
       this.navigation = nav
+      const mapIcon = this.createIcon(['fa', 'fa-globe-americas'])
+      const navBtn = this.createButton('btn-nav', mapIcon)
+      document.getElementsByClassName('buttons')[0].appendChild(navBtn)
     }
+  }
 
-    if (this.target === undefined) {
-      this.target = document.createElement('button')
-      this.target.setAttribute('id', 'btn-nav')
-      this.target.classList.add('buttons__btn')
-      this.target.innerHTML = 'Navigation'
-      this.target.onclick = this.handleClick
-      document.getElementsByClassName('buttons')[0].appendChild(this.target)
-    }
+  createButton(id, icon) {
+    const elem = document.createElement('button')
+    elem.setAttribute('id', 'btn-nav')
+    elem.classList.add('buttons__btn')
+    elem.appendChild(icon)
+    elem.onclick = this.handleClick
+    return elem
+  }
+
+  createIcon(classes) {
+    const elem = document.createElement('icon')
+    elem.setAttribute('aria-hidden', 'true')
+    elem.classList.add(...classes)
+    return elem
   }
 
   toggle(elem) {
@@ -25,9 +35,8 @@ class Buttons {
   }
 
   handleClick(e) {
-    const btn = e.target.id
-
-    if (btn === 'btn-nav') {
+    // We check the propagation chain for our target elem
+    if (e.path.find(target => target.id === 'btn-nav')) {
       this.toggle(this.navigation.target)
     }
   }
