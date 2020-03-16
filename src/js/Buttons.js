@@ -2,7 +2,10 @@ class Buttons {
   constructor() {
     this.navigation
     this.active = true
-    this.handleClick =this.handleClick.bind(this)
+    const container = document.createElement('div')
+    container.classList.add('buttons')
+    document.body.appendChild(container)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   load(nav) {
