@@ -18,7 +18,7 @@ const player = new Player(sampleMaze.x, sampleMaze.y, Math.PI * 0.5)
 const controls = new Controls()
 const loop = new GameLoop()
 
-
+// Load DOM elements
 map.load(sampleMaze)
 navigation.load(sampleMaze);
 buttons.load(navigation)

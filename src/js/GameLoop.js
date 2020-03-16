@@ -6,7 +6,9 @@ class GameLoop {
   }
 
   start (callback) {
+    // Set the callback
     this.callback = callback
+    // Call the frame
     requestAnimationFrame(this.frame)
   }
 

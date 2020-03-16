@@ -2,9 +2,12 @@ class Buttons {
   constructor() {
     this.navigation
     this.active = true
+
+    // Create buttons container
     const container = document.createElement('div')
     container.classList.add('buttons')
     document.body.appendChild(container)
+    
     this.handleClick = this.handleClick.bind(this)
   }
 
