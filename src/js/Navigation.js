@@ -9,7 +9,7 @@ class Navigation {
       this.target = document.createElement('canvas')
       document.body.appendChild(this.target)
       this.target.setAttribute('id', 'navigation')
-      this.target.classList.add('navigation');
+      this.target.classList.add('navigation', 'hide');
     }
 
     this.target.width = size * this.cellSize

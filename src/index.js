@@ -1,6 +1,7 @@
 import Camera from './js/Camera'
 import Map from './js/Map'
 import Navigation from './js/Navigation'
+import Sound from './js/Sound'
 import Player from './js/Player'
 import Controls from './js/Controls'
 import GameLoop from './js/GameLoop'
@@ -13,6 +14,7 @@ const display = document.getElementById('canvas')
 const camera = new Camera(display, MOBILE ? 160 : 320, 0.8)
 const map = new Map(sampleMaze.size)
 const navigation = new Navigation(sampleMaze.size)
+const sound = new Sound()
 const buttons = new Buttons()
 const player = new Player(sampleMaze.x, sampleMaze.y, Math.PI * 0.5)
 const controls = new Controls()
@@ -21,7 +23,7 @@ const loop = new GameLoop()
 // Load DOM elements
 map.load(sampleMaze)
 navigation.load(sampleMaze);
-buttons.load(navigation)
+buttons.load(navigation, sound)
 
 // Run the game loop
 loop.start(function frame(seconds) {
