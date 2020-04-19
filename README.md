@@ -1,2 +1,2 @@
 # TriwizardMaze
-A first-person maze puzzle
+A first-person maze puzzle in vanilla JavaScript
