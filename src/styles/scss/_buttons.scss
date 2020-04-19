@@ -2,9 +2,10 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  padding: 20px;
 
   &__btn {
-    margin: 14px;
+    margin-right: 14px;
     background-color: $silver;
     color: $white;
     border-radius: 28px;
