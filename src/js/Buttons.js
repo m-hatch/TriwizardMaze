@@ -2,7 +2,7 @@ class Buttons {
   constructor() {
     this.navigation
     this.sound
-    this.active = true
+    // this.active = true
 
     // Create buttons container
     const container = document.createElement('div')
@@ -16,7 +16,7 @@ class Buttons {
     if (nav) {
       this.navigation = nav
       const mapIcon = this.createIcon(['fa', 'fa-globe-americas'])
-      const navBtn = this.createButton('btn-nav', mapIcon, false)
+      const navBtn = this.createButton('btn-nav', mapIcon, true)
       document.getElementsByClassName('buttons')[0].appendChild(navBtn)
     }
     if (sound) {

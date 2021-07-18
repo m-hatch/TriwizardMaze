@@ -65,9 +65,9 @@ class Camera {
   }
 
   drawNavigation (player, navigation) {
-    var ctx = navigation.ctx
-    var mapPos = {x: 0, y: 0}
-    var playerPos = {x: player.x, y: player.y}
+    const ctx = navigation.ctx
+    const mapPos = {x: 0, y: 0}
+    const playerPos = {x: player.x, y: player.y}
     navigation.update(ctx, mapPos, playerPos)
   }
 

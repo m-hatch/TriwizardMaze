@@ -73,7 +73,7 @@ class Map {
 
   _inspect (step, shiftX, shiftY, distance, offset, cos, sin) {
     const dx = cos < 0 ? shiftX : 0
-    var dy = sin < 0 ? shiftY : 0
+    const dy = sin < 0 ? shiftY : 0
     step.height = this.get(step.x - dx, step.y - dy)
     step.distance = distance + Math.sqrt(step.length2)
 

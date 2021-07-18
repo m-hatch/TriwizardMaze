@@ -9,7 +9,7 @@ class Navigation {
       this.target = document.createElement('canvas')
       document.body.appendChild(this.target)
       this.target.setAttribute('id', 'navigation')
-      this.target.classList.add('navigation', 'hide');
+      this.target.classList.add('navigation');
     }
 
     this.target.width = size * this.cellSize
@@ -24,8 +24,8 @@ class Navigation {
 
   drawMap () {
     this.ctx.fillStyle = '#ffff00'
-      for(var y = 0; y < this.height; y++){
-        for(var x = 0; x < this.width; x++){
+      for(let y = 0; y < this.height; y++){
+        for(let x = 0; x < this.width; x++){
           if(this.map[(this.height - y - 1) * this.width + (this.width - x - 1)] === 0) {
             this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize)
           }
@@ -38,8 +38,8 @@ class Navigation {
     ctx.clearRect(playerPos.x, playerPos.y, this.cellSize, this.cellSize)
     this.drawMap()
 
-    var pX = (this.width - (playerPos.x | 0) - 1) * this.cellSize
-    var pY = (this.height - (playerPos.y | 0) - 1) * this.cellSize
+    const pX = (this.width - (playerPos.x | 0) - 1) * this.cellSize
+    const pY = (this.height - (playerPos.y | 0) - 1) * this.cellSize
     ctx.drawImage(this.target, pos.x, pos.y, this.target.width, this.target.height)
     ctx.fillStyle = '#ff0000'
     ctx.fillRect(pos.x + pX, pos.y + pY, this.cellSize, this.cellSize)
